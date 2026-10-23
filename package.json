@@ -1,0 +1,46 @@
+{
+  "name": "mandarinclips-mcp",
+  "version": "1.0.0",
+  "description": "Official MCP server for MandarinClips - Search 180,000+ authentic Chinese cinema dialogue clips, HSK grammar, and pragmatic expressions.",
+  "homepage": "https://www.mandarinclips.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IndexFlowing/MandarinClips-mcp"
+  },
+  "bugs": {
+    "url": "https://www.mandarinclips.com/about"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mandarinclips-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "chinese-learning",
+    "tcsl",
+    "mandarin",
+    "corpus",
+    "hsk"
+  ],
+  "author": "MandarinClips Team",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0"
+  }
+}

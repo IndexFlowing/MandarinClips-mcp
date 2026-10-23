@@ -1,0 +1,29 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.IndexFlowing/mandarinclips-mcp",
+  "title": "MandarinClips Authentic Chinese Cinema Corpus",
+  "description": "Pedagogical search engine indexing 180,000+ authentic Chinese movie and TV dialogue clips, HSK grammar patterns, and colloquial expressions for TCSL educators and learners.",
+  "version": "1.0.0",
+  "website": "https://www.mandarinclips.com",
+  "repository": {
+    "url": "https://github.com/IndexFlowing/MandarinClips-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "mandarinclips-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "MANDARINCLIPS_API_KEY",
+          "description": "Optional API Key for elevated quota. Get your free key at https://www.mandarinclips.com/account",
+          "required": false
+        }
+      ]
+    }
+  ]
+}
