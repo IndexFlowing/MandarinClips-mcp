@@ -1,0 +1,677 @@
+This file is a merged representation of a subset of the codebase, containing specifically included files, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of a subset of the repository's contents that is considered the most important context.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Only files matching these patterns are included: **/*.{ts,json,md,yaml}
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+package.json
+README.md
+server.json
+smithery.yaml
+src/index.ts
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="README.md">
+# MandarinClips MCP Server 🎬
+
+[![npm version](https://img.shields.io/npm/v/mandarinclips-mcp.svg?style=flat-square&color=E53E3E)](https://www.npmjs.com/package/mandarinclips-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![MCP](https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-purple.svg?style=flat-square)](https://modelcontextprotocol.io)
+
+Official [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server for **[MandarinClips](https://www.mandarinclips.com)** — the linguistic cinema corpus designed for Chinese language educators (TCSL) and advanced learners.
+
+Seamlessly connect **Claude Desktop**, **Cursor**, and AI agents directly to a database of **180,000+ authentic Chinese movie and television dialogue snippets**, complete with native audio citations, HSK 3.0 grammar formulas, and real-world pragmatic subtexts.
+
+---
+
+## 🌟 Why MandarinClips MCP?
+
+Traditional textbooks teach sterile Chinese dialogues. Real native speech is packed with subtle cultural subtext, conversational hedging, and colloquial idioms. 
+
+This MCP server empowers LLMs to design authentic, cinema-backed Chinese lesson plans, exercises, and vocabulary guides:
+- **Authentic Cinema Context**: Real video turn sequences (previous, target, and succeeding lines) instead of robotic machine-generated sentences.
+- **Pedagogical Indexing**: Search by HSK 3.0 level (1 to 7-9), syntactic grammar patterns, or pragmatic social scenarios (e.g., *polite refusals*, *workplace disputes*).
+- **Direct Markdown Citations**: Every retrieved example automatically embeds an authentic scene link pointing directly to [MandarinClips](https://www.mandarinclips.com).
+
+---
+
+## 🚀 Quickstart: Setup with Claude Desktop
+
+Add this configuration to your Claude Desktop config file:
+
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+### 1. Anonymous / Free Tier (Default)
+Run directly via `npx` with zero installation:
+
+```json
+{
+  "mcpServers": {
+    "mandarinclips": {
+      "command": "npx",
+      "args": ["-y", "mandarinclips-mcp"]
+    }
+  }
+}
+```
+
+### 2. With API Key (Elevated Quota)
+To get 8 free queries per day or unlimited Pro access, obtain your API key from your [MandarinClips Account Dashboard](https://www.mandarinclips.com/account):
+
+```json
+{
+  "mcpServers": {
+    "mandarinclips": {
+      "command": "npx",
+      "args": ["-y", "mandarinclips-mcp"],
+      "env": {
+        "MANDARINCLIPS_API_KEY": "mc_live_your_api_key_here"
+      }
+    }
+  }
+}
+```
+
+Restart Claude Desktop, and you will see the **MandarinClips** tools ready in the toolbar!
+
+---
+
+## 🧰 Available Tools
+
+| Tool Name              | Description                                                  | Parameters                                                   |
+| :--------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| `search_cinema_clips`  | Search 180,000+ real movie dialogues by Chinese characters, Pinyin, or English topics. | `query` (str), `hsk_level` (opt int 1-7), `limit` (opt int 1-20) |
+| `get_grammar_guide`    | Retrieve structural sentence formulas and real dialogue examples for a grammar pattern. | `slug` (e.g., `'hai-shi-ba'`, `'lian-dou'`)                  |
+| `get_expression_guide` | Look up colloquial idioms, slang, and cultural nuances in cinematic contexts. | `slug` (e.g., `'hai-shi-suan-le-ba'`, `'bu-de-bu'`)          |
+| `get_hsk_vocabulary`   | Retrieve official HSK 3.0 vocabulary lists with definitions and linked video counts. | `level` (int 1-7), `page` (opt int), `limit` (opt int)       |
+| `get_word_detail`      | Detailed dictionary profile of a Chinese character/word, showing linked cinema clips. | `slug` (e.g., `'ai-6'`, `'zuo-tian'`)                        |
+
+---
+
+## 🎯 Example Prompts to Try in Claude
+
+- *"Design a 45-minute lesson plan for HSK 3 students on the '还是…吧' structure. Use MandarinClips to find 3 real movie dialogue examples."*
+- *"Give me 5 authentic video examples showing how native Chinese speakers politely refuse an invitation in daily life."*
+- *"Extract Level 2 HSK words related to food, provide pinyin, definitions, and link their video citations."*
+
+---
+
+## 🔑 Tiered Daily Quotas
+
+MandarinClips enforces fair-use daily quotas:
+- **Anonymous (No API Key)**: 3 queries / day (per IP address).
+- **Free Account**: 8 queries / day. [Get your free API key](https://www.mandarinclips.com/account).
+- **Pro Subscribers**: Unlimited queries & high-speed exports via [Patreon](https://www.patreon.com/mandarinclips).
+- **Educators & Professors**: Apply for a complimentary 3-month Pro license via the [Academic Access Program](https://www.mandarinclips.com/educators).
+
+---
+
+## 🏛️ Ecosystem & Links
+
+- 🌐 **Web Platform**: [https://www.mandarinclips.com](https://www.mandarinclips.com)
+- 🎓 **HSK 3.0 Curriculum**: [Explore HSK Word Atlas](https://www.mandarinclips.com/hsk)
+- 📐 **Grammar Library**: [Browse Sentence Patterns](https://www.mandarinclips.com/grammar)
+- 📌 **Expressions & Idioms**: [Colloquial Phrase Directory](https://www.mandarinclips.com/expressions)
+- 🎭 **Pragmatic Scenes**: [Real-world Social Scenarios](https://www.mandarinclips.com/scenes)
+- 📰 **Official Blog**: [Insights on Chinese Pedagogy](https://www.mandarinclips.com/blog/)
+
+---
+
+## 📄 License
+
+MIT License &copy; 2026 MandarinClips Team.
+</file>
+
+<file path="smithery.yaml">
+# smithery.yaml
+startCommand:
+  type: stdio
+  config:
+    command: npx
+    args:
+      - -y
+      - mandarinclips-mcp
+    env:
+      MANDARINCLIPS_API_KEY:
+        type: string
+        description: "Optional API Key for elevated quota. Get your free key at https://www.mandarinclips.com/account"
+        required: false
+</file>
+
+<file path="src/index.ts">
+#!/usr/bin/env node
+// src/index.ts
+// Official MCP Server for MandarinClips - Cinema Corpus for Chinese Language Educators
+
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+
+// 生产环境 API 与 Web 根地址 (支持环境变量覆盖)
+const API_BASE = (process.env.MANDARINCLIPS_API_BASE || "https://www.mandarinclips.com/api/v1").replace(/\/$/, "");
+const WEB_BASE = (process.env.MANDARINCLIPS_WEB_BASE || "https://www.mandarinclips.com").replace(/\/$/, "");
+
+// 初始化 MCP 服务实例
+const server = new McpServer({
+  name: "mandarinclips-mcp",
+  version: "1.0.0",
+});
+
+// 通用 HTTP 请求辅助函数
+async function fetchApi<T>(endpoint: string): Promise<T> {
+  const url = `${API_BASE}${endpoint}`;
+  const headers: Record<string, string> = {
+    "User-Agent": "MandarinClips-MCP-Client/1.0",
+    "Accept": "application/json",
+  };
+
+  if (process.env.MANDARINCLIPS_API_KEY) {
+    headers["Authorization"] = `Bearer ${process.env.MANDARINCLIPS_API_KEY}`;
+  }
+
+  const response = await fetch(url, { headers });
+
+if (response.status === 429) {
+    const errorJson = await response.json().catch(() => ({} as Record<string, any>));
+    const message = errorJson.message || "Daily API query quota limit reached.";
+
+    // 填入你的真实 Patreon 创作者主页链接 (例如 https://www.patreon.com/c/mandarinclips 或 https://www.patreon.com/mandarinclips)
+    const PATREON_URL = process.env.MANDARINCLIPS_PATREON_URL || "https://www.patreon.com/mandarinclips";
+
+    const promotionMarkdown = [
+      `\n\n### ⚠️ MandarinClips Daily Quota Exceeded`,
+      `${message}\n`,
+      `**How to continue using MandarinClips:**`,
+      `- 🔑 **[Get Free API Key (8 queries/day)](https://www.mandarinclips.com/account)** — Create a free account to unlock 8 queries every day.`,
+      `- 💎 **[Subscribe to Pro on Patreon (Unlimited Access)](https://www.patreon.com/16102562/join)** — Instant unlimited queries, video exports, and full corpus access.`,
+      `- 🎓 **[Teachers: Apply for Free Academic License](https://www.mandarinclips.com/educators)** — Complimentary 3-month Pro access for professors and language instructors.\n`
+    ].join("\n");
+
+    throw new Error(promotionMarkdown);
+  }
+
+  if (response.status === 401) {
+    const errorJson: any = await response.json().catch(() => ({}));
+    const message = errorJson.message || "Invalid API Key. Please get your valid key at https://www.mandarinclips.com/account";
+    const authCard = `\n\n⚠️ **MandarinClips Auth Notice**:\n${message}\n\n- 👉 **[Get Your API Key](https://www.mandarinclips.com/account)**\n`;
+    throw new Error(authCard);
+  }
+
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => "");
+    throw new Error(`MandarinClips API Error [${response.status}]: ${errorText || response.statusText}`);
+  }
+  return response.json() as Promise<T>;
+}
+
+function formatErrorResponse(action: string, err: any) {
+  const msg = err?.message || String(err);
+  if (msg.includes("MandarinClips Quota Notice") || msg.includes("MandarinClips Auth Notice")) {
+    return { content: [{ type: "text" as const, text: msg.trim() }] };
+  }
+  return { content: [{ type: "text" as const, text: `Failed to ${action}: ${msg}` }] };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 工具 1: search_cinema_clips (多维影视切片与对白检索)
+// ─────────────────────────────────────────────────────────────────────────────
+server.tool(
+  "search_cinema_clips",
+  {
+    query: z.string().describe("Search keywords: Chinese characters (e.g. '算了'), Pinyin (e.g. 'suan le'), or English meaning/intent."),
+    hsk_level: z.number().int().min(1).max(7).optional().describe("Filter by HSK 3.0 Level (1 to 7)."),
+    limit: z.number().int().min(1).max(20).optional().default(5).describe("Max number of dialogue clips to return (1-20)."),
+  },
+  async ({ query, hsk_level, limit }) => {
+    try {
+      const params = new URLSearchParams({
+        q: query,
+        limit: limit.toString(),
+        locale: "en",
+      });
+      if (hsk_level !== undefined) {
+        params.append("hsk_level", hsk_level.toString());
+      }
+
+      const res = await fetchApi<{
+        success: boolean;
+        data: {
+          query: string;
+          total: number;
+          clips: Array<{
+            id: string;
+            text_zh: string;
+            pinyin: string;
+            localized_text?: string;
+            hsk_level?: number;
+          }>;
+        };
+      }>(`/search?${params.toString()}`);
+
+      const clips = res.data?.clips || [];
+      if (clips.length === 0) {
+        return {
+          content: [{ type: "text", text: `No cinema clips found for query: "${query}". Try searching with broader keywords.` }],
+        };
+      }
+
+      let markdown = `### 🎬 MandarinClips Cinema Evidence for "${query}" (Found ${res.data.total || clips.length} clips):\n\n`;
+
+      clips.forEach((c, idx) => {
+        const canonicalId = c.id.replace(/_/g, "-");
+        const clipUrl = `${WEB_BASE}/clip/${canonicalId}`;
+        const levelBadge = c.hsk_level ? ` [HSK ${c.hsk_level}]` : "";
+
+        markdown += `${idx + 1}. **"${c.text_zh}"**${levelBadge}\n`;
+        markdown += `   - **Pinyin**: *${c.pinyin}*\n`;
+        if (c.localized_text) {
+          markdown += `   - **English**: "${c.localized_text}"\n`;
+        }
+        markdown += `   - **Direct Video Reference**: [Watch Scene & Listen on MandarinClips](${clipUrl})\n\n`;
+      });
+
+      return { content: [{ type: "text", text: markdown.trim() }] };
+    } catch (err: any) {
+      return formatErrorResponse("search clips", err);
+    }
+  }
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 工具 2: get_grammar_guide (句式骨架与教学用例查询)
+// ─────────────────────────────────────────────────────────────────────────────
+server.tool(
+  "get_grammar_guide",
+  {
+    slug: z.string().describe("Grammar slug (e.g. 'hai-shi-ba' for '还是…吧', 'lian-dou' for '连…都…')."),
+  },
+  async ({ slug }) => {
+    try {
+      const res = await fetchApi<{
+        success: boolean;
+        data: {
+          grammar: {
+            pattern: string;
+            slug: string;
+            name: string;
+            level?: number;
+            description: string;
+            clip_count: number;
+          };
+          examples: Array<{
+            text_zh: string;
+            pinyin: string;
+            localized_text?: string;
+            clip_id?: string;
+          }>;
+        };
+      }>(`/grammar/${slug}`);
+
+      const g = res.data.grammar;
+      const grammarUrl = `${WEB_BASE}/grammar/${g.slug}`;
+      const levelBadge = g.level ? ` [HSK Level ${g.level}]` : "";
+
+      let markdown = `### 📐 Chinese Grammar Blueprint: "${g.pattern}"${levelBadge}\n`;
+      markdown += `**Name / Function**: ${g.name || "Grammar Structure"}\n`;
+      if (g.description) {
+        markdown += `**Pedagogical Note**: ${g.description}\n`;
+      }
+      markdown += `**Corpus Reference**: [Explore Full Grammar Dossier & Variations on MandarinClips](${grammarUrl})\n\n`;
+
+      if (res.data.examples && res.data.examples.length > 0) {
+        markdown += `#### 🎬 Authentic Cinema Sentence Examples:\n`;
+        res.data.examples.slice(0, 5).forEach((ex, idx) => {
+          markdown += `${idx + 1}. **"${ex.text_zh}"**\n`;
+          markdown += `   - *${ex.pinyin}*\n`;
+          if (ex.localized_text) {
+            markdown += `   - "${ex.localized_text}"\n`;
+          }
+          if (ex.clip_id) {
+            const canonicalClipId = ex.clip_id.replace(/_/g, "-");
+            markdown += `   - [Watch Clip Example](${WEB_BASE}/clip/${canonicalClipId})\n`;
+          }
+          markdown += `\n`;
+        });
+      }
+
+      return { content: [{ type: "text", text: markdown.trim() }] };
+    } catch (err: any) {
+      return formatErrorResponse("fetch grammar guide", err);
+    }
+  }
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 工具 3: get_expression_guide (习惯表达、俚语与母语潜台词)
+// ─────────────────────────────────────────────────────────────────────────────
+server.tool(
+  "get_expression_guide",
+  {
+    slug: z.string().describe("Expression slug (e.g. 'hai-shi-suan-le-ba', 'bu-de-bu')."),
+  },
+  async ({ slug }) => {
+    try {
+      const res = await fetchApi<{
+        success: boolean;
+        data: {
+          expression: {
+            text: string;
+            slug: string;
+            pinyin: string;
+            meaning: string;
+            level?: number;
+            clip_count: number;
+          };
+          examples: Array<{
+            text_zh: string;
+            pinyin: string;
+            localized_text?: string;
+            clip_id?: string;
+          }>;
+        };
+      }>(`/expressions/${slug}`);
+
+      const exp = res.data.expression;
+      const exprUrl = `${WEB_BASE}/expressions/${exp.slug}`;
+      const levelBadge = exp.level ? ` [HSK Level ${exp.level}]` : "";
+
+      let markdown = `### 📌 Authentic Chinese Expression: "${exp.text}"${levelBadge}\n`;
+      markdown += `- **Pinyin**: *${exp.pinyin}*\n`;
+      markdown += `- **English Meaning & Pragmatics**: ${exp.meaning}\n`;
+      markdown += `- **Full Corpus Dossier**: [View Usage Scenarios & Nuances on MandarinClips](${exprUrl})\n\n`;
+
+      if (res.data.examples && res.data.examples.length > 0) {
+        markdown += `#### 🎬 How Native Speakers Use It in Dialogue:\n`;
+        res.data.examples.slice(0, 5).forEach((ex, idx) => {
+          markdown += `${idx + 1}. **"${ex.text_zh}"**\n`;
+          markdown += `   - *${ex.pinyin}*\n`;
+          if (ex.localized_text) {
+            markdown += `   - "${ex.localized_text}"\n`;
+          }
+          if (ex.clip_id) {
+            const canonicalClipId = ex.clip_id.replace(/_/g, "-");
+            markdown += `   - [Watch Native Scene](${WEB_BASE}/clip/${canonicalClipId})\n`;
+          }
+          markdown += `\n`;
+        });
+      }
+
+      return { content: [{ type: "text", text: markdown.trim() }] };
+    } catch (err: any) {
+      return formatErrorResponse("fetch expression guide", err);
+    }
+  }
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 工具 4: get_hsk_vocabulary (官方 HSK 3.0 等级大盘词表检索)
+// ─────────────────────────────────────────────────────────────────────────────
+server.tool(
+  "get_hsk_vocabulary",
+  {
+    level: z.number().int().min(1).max(7).describe("HSK 3.0 Level (1 to 7). Level 7 covers bands 7-9."),
+    page: z.number().int().min(1).optional().default(1).describe("Page number for pagination."),
+    limit: z.number().int().min(1).max(50).optional().default(20).describe("Number of vocabulary items per page."),
+  },
+  async ({ level, page, limit }) => {
+    try {
+      const res = await fetchApi<{
+        success: boolean;
+        data: Array<{
+          word_id: number;
+          text: string;
+          slug: string;
+          pinyin?: string;
+          meaning?: string;
+          clip_count: number;
+        }>;
+        meta: {
+          total: number;
+          total_pages: number;
+        };
+      }>(`/hsk/${level}?page=${page}&limit=${limit}`);
+
+      const words = res.data || [];
+      const levelTitle = level === 7 ? "Level 7-9" : `Level ${level}`;
+      const levelUrl = `${WEB_BASE}/hsk/${level}`;
+
+      let markdown = `### 🎓 Official HSK 3.0 ${levelTitle} Vocabulary (Page ${page}/${res.meta?.total_pages || 1}, Total: ${res.meta?.total || words.length} words)\n`;
+      markdown += `*Reference Directory: [Explore HSK ${levelTitle} Word Atlas on MandarinClips](${levelUrl})*\n\n`;
+
+      words.forEach((w, idx) => {
+        const wordUrl = `${WEB_BASE}/word/${w.slug}`;
+        const pinyinStr = w.pinyin ? ` (${w.pinyin})` : "";
+        markdown += `${idx + 1}. **[${w.text}](${wordUrl})**${pinyinStr} - ${w.meaning || "—"} *(${w.clip_count} video examples)*\n`;
+      });
+
+      return { content: [{ type: "text", text: markdown.trim() }] };
+    } catch (err: any) {
+      return formatErrorResponse("fetch HSK vocabulary", err);
+    }
+  }
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 工具 5: get_word_detail (单词深度档案及影视例句)
+// ─────────────────────────────────────────────────────────────────────────────
+server.tool(
+  "get_word_detail",
+  {
+    slug: z.string().describe("Word slug identifier (e.g. 'ai-6', 'zuo-tian')."),
+  },
+  async ({ slug }) => {
+    try {
+      const res = await fetchApi<{
+        success: boolean;
+        data: {
+          word: {
+            id: number;
+            text: string;
+            slug: string;
+            pinyin?: string;
+            meaning?: string;
+            clip_count: number;
+          };
+          levels: number[];
+          clips: Array<{
+            id: string;
+            text_zh: string;
+            pinyin: string;
+            translation: string;
+            hsk_level?: number;
+            show_title?: string;
+          }>;
+        };
+      }>(`/words/${slug}`);
+
+      const w = res.data.word;
+      const wordUrl = `${WEB_BASE}/word/${w.slug}`;
+      const levelsBadge = res.data.levels.length > 0 ? ` [HSK Level ${res.data.levels.join(", ")}]` : "";
+
+      let markdown = `### 📖 Mandarin Vocabulary Profile: "${w.text}"${levelsBadge}\n`;
+      markdown += `- **Pinyin**: *${w.pinyin || "—"}*\n`;
+      markdown += `- **English Definition**: ${w.meaning || "—"}\n`;
+      markdown += `- **Canonical Link**: [View Full Word Profile on MandarinClips](${wordUrl})\n\n`;
+
+      if (res.data.clips && res.data.clips.length > 0) {
+        markdown += `#### 🎬 Authentic Cinema Example Clips:\n`;
+        res.data.clips.forEach((c, idx) => {
+          const canonicalClipId = c.id.replace(/_/g, "-");
+          const clipUrl = `${WEB_BASE}/clip/${canonicalClipId}`;
+          const showStr = c.show_title ? ` (《${c.show_title}》)` : "";
+
+          markdown += `${idx + 1}. **"${c.text_zh}"**${showStr}\n`;
+          markdown += `   - *${c.pinyin}*\n`;
+          markdown += `   - "${c.translation}"\n`;
+          markdown += `   - [Watch Video & Shadow Audio](${clipUrl})\n\n`;
+        });
+      }
+
+      return { content: [{ type: "text", text: markdown.trim() }] };
+    } catch (err: any) {
+      return formatErrorResponse("fetch word detail", err);
+    }
+  }
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 启动服务 (标准 Stdio Transport)
+// ─────────────────────────────────────────────────────────────────────────────
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error("🚀 MandarinClips MCP Server successfully running on stdio");
+}
+
+main().catch((error) => {
+  console.error("🚨 Fatal error starting MandarinClips MCP Server:", error);
+  process.exit(1);
+});
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM"],
+    "types": ["node"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"]
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "mandarinclips-mcp",
+  "version": "1.0.2",
+  "mcpName": "com.mandarinclips/mcp",
+  "description": "Official MCP server for MandarinClips - Search 180,000+ authentic Chinese cinema dialogue clips, HSK grammar, and pragmatic expressions.",
+  "homepage": "https://www.mandarinclips.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IndexFlowing/MandarinClips-mcp"
+  },
+  "bugs": {
+    "url": "https://www.mandarinclips.com/about"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mandarinclips-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "chinese-learning",
+    "tcsl",
+    "mandarin",
+    "corpus",
+    "hsk"
+  ],
+  "author": "MandarinClips Team",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0"
+  }
+}
+</file>
+
+<file path="server.json">
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.mandarinclips/mcp",
+  "description": "Search 180,000+ authentic Chinese cinema clips, HSK grammar, and expressions for TCSL educators.",
+  "title": "MandarinClips Authentic Chinese Cinema Corpus",
+  "repository": {
+    "url": "https://github.com/IndexFlowing/MandarinClips-mcp",
+    "source": "github"
+  },
+  "version": "1.0.2",
+  "websiteUrl": "https://www.mandarinclips.com",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "mandarinclips-mcp",
+      "version": "1.0.2",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "description": "Optional API Key for elevated quota. Get your free key at https://www.mandarinclips.com/account",
+          "name": "MANDARINCLIPS_API_KEY",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
+</file>
+
+</files>

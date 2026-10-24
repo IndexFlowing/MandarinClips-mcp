@@ -21,6 +21,33 @@ This MCP server empowers LLMs to design authentic, cinema-backed Chinese lesson 
 
 ---
 
+## 🌐 Quick Connection (Two Ways)
+
+### Option A: Cloud Remote MCP (Zero Install - Recommended for Educators)
+No Node.js or installation required! In any MCP-compatible client or web agent (Claude Web, Smithery, Cursor Remote):
+- **Server URL**: `https://www.mandarinclips.com/mcp`
+- **API Key Header**: `Authorization: Bearer <your_api_key>` (or URL query: `?api_key=...`)
+
+---
+
+### Option B: Local Stdio via NPX (For Desktop Power Users)
+Add this configuration to your Claude Desktop config file:
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "mandarinclips": {
+      "command": "npx",
+      "args": ["-y", "mandarinclips-mcp@1.1.0"],
+      "env": {
+        "MANDARINCLIPS_API_KEY": "mc_live_your_api_key_here"
+      }
+    }
+  }
+}
+
 ## 🚀 Quickstart: Setup with Claude Desktop
 
 Add this configuration to your Claude Desktop config file:

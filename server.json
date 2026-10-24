@@ -7,13 +7,19 @@
     "url": "https://github.com/IndexFlowing/MandarinClips-mcp",
     "source": "github"
   },
-  "version": "1.0.2",
+  "version": "1.1.0",
   "websiteUrl": "https://www.mandarinclips.com",
+  "remotes": [
+    {
+      "type": "sse",
+      "url": "https://www.mandarinclips.com/mcp"
+    }
+  ],
   "packages": [
     {
       "registryType": "npm",
       "identifier": "mandarinclips-mcp",
-      "version": "1.0.2",
+      "version": "1.1.0",
       "transport": {
         "type": "stdio"
       },
