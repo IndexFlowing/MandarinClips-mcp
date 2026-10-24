@@ -47,6 +47,7 @@ Add this configuration to your Claude Desktop config file:
     }
   }
 }
+```
 
 ## 🚀 Quickstart: Setup with Claude Desktop
 
@@ -70,6 +71,7 @@ Run directly via `npx` with zero installation:
 ```
 
 ### 2. With API Key (Elevated Quota)
+
 To get 8 free queries per day or unlimited Pro access, obtain your API key from your [MandarinClips Account Dashboard](https://www.mandarinclips.com/account):
 
 ```json

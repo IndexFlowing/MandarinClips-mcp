@@ -1,11 +1,10 @@
-# smithery.yaml
 startCommand:
   type: stdio
   config:
     command: npx
     args:
       - -y
-      - mandarinclips-mcp
+      - mandarinclips-mcp@1.1.0
     env:
       MANDARINCLIPS_API_KEY:
         type: string
