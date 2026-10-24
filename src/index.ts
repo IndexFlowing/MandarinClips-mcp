@@ -13,7 +13,7 @@ const WEB_BASE = (process.env.MANDARINCLIPS_WEB_BASE || "https://www.mandarincli
 // 初始化 MCP 服务实例
 const server = new McpServer({
   name: "mandarinclips-mcp",
-  version: "1.0.0",
+  version: "1.1.0",
 });
 
 // 通用 HTTP 请求辅助函数
