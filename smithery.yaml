@@ -1,0 +1,13 @@
+# smithery.yaml
+startCommand:
+  type: stdio
+  config:
+    command: npx
+    args:
+      - -y
+      - mandarinclips-mcp
+    env:
+      MANDARINCLIPS_API_KEY:
+        type: string
+        description: "Optional API Key for elevated quota. Get your free key at https://www.mandarinclips.com/account"
+        required: false
