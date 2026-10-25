@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "mandarinclips": {
+      "type": "http",
+      "url": "https://www.mandarinclips.com/mcp"
+    }
+  }
+}

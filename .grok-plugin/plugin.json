@@ -1,0 +1,14 @@
+{
+  "name": "mandarinclips",
+  "version": "1.0.0",
+  "description": "MandarinClips for Grok Build via the hosted MandarinClips MCP server at mandarinclips.com. Search 180,000+ authentic Chinese cinema dialogue clips, pull HSK 3.0 grammar guides and pragmatic expression guides, and build cinema-backed lesson materials. Free tier works anonymously.",
+  "author": {
+    "name": "IndexFlowing",
+    "url": "https://www.mandarinclips.com"
+  },
+  "homepage": "https://www.mandarinclips.com",
+  "repository": "https://www.npmjs.com/package/mandarinclips-mcp",
+  "license": "MIT",
+  "keywords": ["mandarinclips", "mandarin clips", "chinese cinema", "tcsl", "hsk grammar", "chinese learning"],
+  "logo": "assets/logo-400x400.png"
+}
